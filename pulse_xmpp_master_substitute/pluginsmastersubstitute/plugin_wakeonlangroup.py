@@ -36,6 +36,8 @@ def action(xmppobject, action, sessionid, data, message, ret):
             xmppobject.brodcastwol = []
             for ifaceName in interfaces():
                 addrs = ifaddresses(ifaceName)
+                if AF_INET not in addrs:
+                    continue
                 k = addrs[AF_INET]
                 for t in k:
                     if "broadcast" not in t:

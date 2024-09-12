@@ -2434,7 +2434,7 @@ class XmppMasterDatabase(DatabaseHelper):
                 and_(
                     Network.broadcast != "",
                     Network.broadcast.isnot(None),
-                    Network.mac.in_(listmacaddress),
+                    Network.macaddress.in_(listmacaddress),
                 )
             )
             .all()
