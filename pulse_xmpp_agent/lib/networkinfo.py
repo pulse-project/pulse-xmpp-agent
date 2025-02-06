@@ -794,7 +794,7 @@ def adusergroups(user):
 
 def interfacename(mac):
     for interface in netifaces.interfaces():
-        if interface == '':
+        if interface == "":
             continue
         if isInterfaceToMacadress(interface, mac):
             return interface
