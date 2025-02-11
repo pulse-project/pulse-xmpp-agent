@@ -6277,11 +6277,15 @@ def clean_update_directories():
     Ensuite, elle démonte tous les lecteurs logiques CD-ROM.
     """
     # Chemin du fichier BOOL_CLEAN_UPDATE
-    bool_clean_update_path = r"C:\Program Files\Python3\Lib\site-packages\pulse_xmpp_agent\BOOL_CLEAN_UPDATE"
+    bool_clean_update_path = (
+        r"C:\Program Files\Python3\Lib\site-packages\pulse_xmpp_agent\BOOL_CLEAN_UPDATE"
+    )
 
     # Vérifie si le fichier BOOL_CLEAN_UPDATE existe
     if os.path.exists(bool_clean_update_path):
-        logger.debug("Le fichier BOOL_CLEAN_UPDATE a été trouvé. Exécution des actions...")
+        logger.debug(
+            "Le fichier BOOL_CLEAN_UPDATE a été trouvé. Exécution des actions..."
+        )
 
         # Chemin du répertoire cible pour la recherche des répertoires "update"
         target_dir = r"C:\Program Files\Medulla\var\tmp\packages"
@@ -6294,21 +6298,30 @@ def clean_update_directories():
                     logger.debug(f"Suppression du répertoire : {dir_path}")
                     try:
                         shutil.rmtree(dir_path)
-                        logger.debug(f"Le répertoire {dir_path} a été supprimé avec succès.")
+                        logger.debug(
+                            f"Le répertoire {dir_path} a été supprimé avec succès."
+                        )
                     except Exception as e:
-                        logger.error(f"Erreur lors de la suppression du répertoire {dir_path}. Message : {e}")
+                        logger.error(
+                            f"Erreur lors de la suppression du répertoire {dir_path}. Message : {e}"
+                        )
 
         # Suppression du fichier BOOL_CLEAN_UPDATE
         try:
             os.remove(bool_clean_update_path)
             logger.debug("Le fichier BOOL_CLEAN_UPDATE a été supprimé avec succès.")
         except Exception as e:
-            logger.debug(f"Erreur lors de la suppression du fichier BOOL_CLEAN_UPDATE. Message : {e}")
+            logger.debug(
+                f"Erreur lors de la suppression du fichier BOOL_CLEAN_UPDATE. Message : {e}"
+            )
 
         # Démonter les lecteurs logiques CD-ROM
         eject_cdrom_drives()
     else:
-        logger.debug("Le fichier BOOL_CLEAN_UPDATE n'a pas été trouvé. Aucune action n'est requise.")
+        logger.debug(
+            "Le fichier BOOL_CLEAN_UPDATE n'a pas été trouvé. Aucune action n'est requise."
+        )
+
 
 def eject_cdrom_drives():
     """
@@ -6333,10 +6346,14 @@ def eject_cdrom_drives():
 
         # Vérifie si des lecteurs correspondants ont été trouvés
         if not cdrom_disks:
-            logger.debug("Aucun lecteur avec une description contenant 'CD-ROM' n'a été trouvé.")
+            logger.debug(
+                "Aucun lecteur avec une description contenant 'CD-ROM' n'a été trouvé."
+            )
         else:
             for disk in cdrom_disks:
-                logger.debug(f"Lecteur trouvé : {disk.DeviceID} - Description : {disk.Description}")
+                logger.debug(
+                    f"Lecteur trouvé : {disk.DeviceID} - Description : {disk.Description}"
+                )
 
                 # Tente de démonter/éjecter le lecteur
                 try:
@@ -6344,10 +6361,16 @@ def eject_cdrom_drives():
                     cd_drive = shell_app.Namespace(17).ParseName(disk.DeviceID)
                     if cd_drive:
                         cd_drive.InvokeVerb("Eject")
-                        logger.debug(f"Le lecteur {disk.DeviceID} a été démonté avec succès.")
+                        logger.debug(
+                            f"Le lecteur {disk.DeviceID} a été démonté avec succès."
+                        )
                     else:
-                        logger.debug(f"Impossible de trouver le lecteur {disk.DeviceID} pour le démonter.")
+                        logger.debug(
+                            f"Impossible de trouver le lecteur {disk.DeviceID} pour le démonter."
+                        )
                 except Exception as e:
-                    logger.debug(f"Erreur lors du démontage du lecteur {disk.DeviceID}. Message : {e}")
+                    logger.debug(
+                        f"Erreur lors du démontage du lecteur {disk.DeviceID}. Message : {e}"
+                    )
     finally:
         pythoncom.CoUninitialize()
